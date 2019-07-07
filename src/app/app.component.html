@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <h1>Bootcamp Enrollment Form</h1>
+
+  {{ registrationForm.value | json }}
+
+  <form [formGroup]="registrationForm">
+    <div class="form-group">
+      <label>Name</label>
+      <input formControlName="name" type="text" [class.is-invalid]="userName.invalid && userName.touched"
+        class="form-control" placeholder="Name">
+      <div *ngIf="userName.invalid && userName.touched">
+        <small *ngIf="userName.errors?.required" class="text-danger">Username is required</small>
+        <small *ngIf="userName.errors?.minlength" class="text-danger">
+          Username must be at least 4 characters
+        </small>
+        <small *ngIf="userName.errors?.forbiddenName" class="text-danger">
+          {{ userName.errors?.forbiddenName.value }} Username not allowed
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" [class.is-invalid]="email.invalid && email.touched" class="form-control" formControlName="email">
+      <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+    </div>
+
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" formControlName="subscribe">
+      <label class="form-check-label">
+        Send me promotional offers
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input formControlName="password" type="password" class="form-control" placeholder="Password">
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input formControlName="confirmPassword" type="password" class="form-control" placeholder="Confrim Password">
+    </div>
+
+    <div formGroupName="address">
+      <div class="form-group">
+        <label>State</label>
+        <input formControlName="state" type="text" class="form-control" placeholder="State">
+      </div>
+
+      <div class="form-group">
+        <label>City</label>
+        <input formControlName="city" type="text" class="form-control" placeholder="City">
+      </div>
+
+      <div class="form-group">
+        <label>Postal Code</label>
+        <input formControlName="postalCode" type="text" class="form-control" placeholder="Postal Code">
+      </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit form</button>
+    <button (click)="loadApiData()" class="btn btn-secondary ml-2" type="button">Add API loadData</button>
+  </form>
+</div>
